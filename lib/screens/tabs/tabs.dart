@@ -54,7 +54,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
     // TODO: implement build
     return Scaffold(
       body: TabBarView(
-//          physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: <Widget>[
             HomePage(),
