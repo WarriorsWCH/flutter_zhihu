@@ -2,27 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_zhihu/blocs/home-bloc.dart';
-import 'package:flutter_zhihu/utils/screen_util.dart';
-
-import 'home-iitem.dart';
+import 'home_iitem.dart';
 
 
 class HomePage extends StatefulWidget{
   @override
   _HomePageState createState() {
-    // TODO: implement createState
     return _HomePageState();
   }
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
   HomeBloc _bloc = HomeBloc();
+  
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     _bloc.getFeeds();
   }
@@ -39,9 +37,7 @@ class _HomePageState extends State<HomePage>{
             List dataList = [];
             if (snapshot.hasData) {
               if (snapshot.data != null) {
-                print(json.decode(snapshot.data));
                 dataList = json.decode(snapshot.data);
-                print(dataList[0]);
               }
             }
             return ListView.builder(

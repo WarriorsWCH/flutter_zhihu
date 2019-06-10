@@ -29,6 +29,8 @@ dependencies:
   shared_preferences: 0.4.3
   # toast的组件
   fluttertoast: 2.2.11
+  # 上拉刷新，下拉加载
+  flutter_easyrefresh: ^1.2.7
 
 dev_dependencies:
   flutter_test:

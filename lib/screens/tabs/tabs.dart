@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zhihu/screens/chat/chat.dart';
-import 'package:flutter_zhihu/screens/discovery/discovery.dart';
+import 'package:flutter_zhihu/screens/discovery/discovery_page.dart';
 import 'package:flutter_zhihu/screens/home/home_page.dart';
 import 'package:flutter_zhihu/screens/more/more.dart';
 import 'package:flutter_zhihu/screens/notification/notification.dart';
@@ -17,7 +17,6 @@ class Tabs extends StatefulWidget{
 
   @override
   _TabsState createState() {
-    // TODO: implement createState
     return _TabsState();
   }
 }
@@ -37,7 +36,6 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _tabController = TabController(length: _titles.length, vsync: this, initialIndex: 0);
@@ -51,7 +49,6 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
@@ -76,11 +73,10 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
                   isScrollable: false,
                   controller: _tabController,
                   indicatorColor: Colors.transparent,
-                  labelColor: Color(0xff7357ff),
+                  labelColor: Color(0xff488aff),
                   labelPadding: EdgeInsets.all(0),
                   unselectedLabelColor: Color(0xff9b9b9b),
                   tabs: List.generate(_titles.length, (index){
-                    print(_titles[index].title);
                     return _buildTabItem(_titles[index].title, Icon(_titles[index].icon));
                   }),
                 ),
@@ -102,7 +98,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
       badgeNo: badgeNo == null ? null : badgeNo,
       badgeColor: badgeNo == null ? null : Color(0xffff0000),
       iconPadding: EdgeInsets.all(0),
-      textStyle: TextStyle(fontSize: 10),
+      textStyle: TextStyle(fontSize: 14),
     );
   }
 }

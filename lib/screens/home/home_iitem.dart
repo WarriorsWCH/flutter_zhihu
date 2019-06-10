@@ -3,11 +3,11 @@ import 'package:flutter_zhihu/utils/screen_util.dart';
 
 class HomeItem extends StatefulWidget{
   final Map<String,dynamic> data;
-  HomeItem(this.data);
+  String str;
+  HomeItem(this.data,{this.str = '回答'});
 
   @override
   _HomeItemState createState() {
-    // TODO: implement createState
     return _HomeItemState();
   }
 }
@@ -16,13 +16,11 @@ class _HomeItemState extends State<HomeItem>{
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.only(bottom: 20),
@@ -37,13 +35,14 @@ class _HomeItemState extends State<HomeItem>{
                 height: px(30),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(widget.data['HeadFace'])
+                      image: NetworkImage(widget.data['HeadFace']),
+                      fit: BoxFit.fitHeight
                   ),
                   borderRadius: BorderRadius.circular(100)
                 ),
               ),
               
-              Text('${widget.data['UserNickName']}回答了该问题',style: TextStyle(fontSize: 14,color: Color(0xff999999)),),
+              Text('${widget.data['UserNickName']}${widget.str}了该问题',style: TextStyle(fontSize: 14,color: Color(0xff999999)),),
 
               Spacer(),
             ],
