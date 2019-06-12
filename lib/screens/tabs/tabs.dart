@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zhihu/screens/chat/chat.dart';
 import 'package:flutter_zhihu/screens/discovery/discovery_page.dart';
 import 'package:flutter_zhihu/screens/home/home_page.dart';
 import 'package:flutter_zhihu/screens/more/more.dart';
-import 'package:flutter_zhihu/screens/notification/notification.dart';
 import 'package:flutter_zhihu/screens/tabs/eachtab.dart';
 
 
@@ -28,8 +26,6 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
   List<TabModel> _titles = [
     TabModel('首页',Icons.home),
     TabModel('发现',Icons.disc_full),
-    TabModel('聊天',Icons.chat),
-    TabModel('通知',Icons.notifications),
     TabModel('更多',Icons.more)
   ];
 
@@ -56,8 +52,6 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
           children: <Widget>[
             HomePage(),
             DiscoveryPage(),
-            ChatPage(),
-            NotificationPage(),
             MorePage()
           ]
       ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
 import 'package:flutter_zhihu/screens/tabs/tabs.dart';
@@ -15,7 +17,14 @@ class MyApp extends StatelessWidget {
     }
   }
 
+  // saveSystemInfo() async {
+  //   await LocalDataProvider.getInstance().initData();
+  //   LocalDataProvider.getInstance().setAppVersion(packageInfo.version);
 
+  //   if (Platform.isIOS) {
+  //     LocalDataProvider.getInstance().setIos();
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
