@@ -2,29 +2,44 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
+import 'package:flutter_zhihu/screens/login/login_page.dart';
 import 'package:flutter_zhihu/screens/tabs/tabs.dart';
 
-void main() => runApp(MyApp());
+
+saveSystemInfo() async {
+  await LocalDataProvider.getInstance().initData();
+
+  if (Platform.isIOS) {
+    LocalDataProvider.getInstance().setIos();
+  }
+}
+
+bool isLogin;
+
+void main() async{
+  isLogin = LocalDataProvider.getInstance().isLogin();
+  await saveSystemInfo();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
   bool _isLogin = LocalDataProvider.getInstance().isLogin();
 
 
-  Widget _changePage(){
-    if(_isLogin != null){
-      return Tabs();
+  Widget _changePage() {
+    if (isLogin != null) {
+      if (isLogin) {
+        return Tabs();
+      } else {
+        return LoginPage();
+      }
+    } else {
+      return LoginPage();
     }
   }
 
-  // saveSystemInfo() async {
-  //   await LocalDataProvider.getInstance().initData();
-  //   LocalDataProvider.getInstance().setAppVersion(packageInfo.version);
-
-  //   if (Platform.isIOS) {
-  //     LocalDataProvider.getInstance().setIos();
-  //   }
-  // }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
