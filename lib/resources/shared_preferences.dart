@@ -123,6 +123,8 @@ class SharedPreferencesKeys {
   static String userId = 'userId';
   static String userNickName = 'userNickName';
   static String userHeadface = 'userHeadface';
+  static String phone = 'phone';
+  static String password = 'password';
 
 
   /// 保存"关闭提示信息"的时间

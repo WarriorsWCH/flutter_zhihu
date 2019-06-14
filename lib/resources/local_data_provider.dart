@@ -6,6 +6,8 @@ class UserBriefModel {
   String userId;
   String userNickName;
   String userHeadface;
+  String phone;
+  String password;
 }
 
 class LocalDataProvider {
@@ -39,13 +41,17 @@ class LocalDataProvider {
     _briefInfo.userNickName = sp.getString(SharedPreferencesKeys.userNickName);
     _briefInfo.userHeadface =
         sp.getString(SharedPreferencesKeys.userHeadface);
+    _briefInfo.phone = sp.getString(SharedPreferencesKeys.phone);
+    _briefInfo.password = sp.getString(SharedPreferencesKeys.password);
 
   }
 
-  saveUserInfo(userId,userNickName,userHeadface) async {
+  saveUserInfo(userId,userNickName,userHeadface,phone,password) async {
     sp.putString(SharedPreferencesKeys.userId, userId);
     sp.putString(SharedPreferencesKeys.userNickName, userNickName);
     sp.putString(SharedPreferencesKeys.userHeadface, userHeadface);
+    sp.putString(SharedPreferencesKeys.phone, phone);
+    sp.putString(SharedPreferencesKeys.password, password);
     initBriefInfo();
   }
   bool isLogin() {

@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
 import 'package:flutter_zhihu/resources/network-provider.dart';
 import 'package:flutter_zhihu/screens/home/home_page.dart';
-import 'package:flutter_zhihu/screens/login/register_page.dart';
 import 'package:flutter_zhihu/screens/tabs/tabs.dart';
 import 'package:flutter_zhihu/utils/ui_util.dart';
 import 'package:flutter_zhihu/utils/validators.dart';
@@ -17,16 +16,18 @@ import 'login_input.dart';
 class PasswordLoginInfo {
   String phone;
   String password;
+  String nickname;
+  String confirm;
 }
 
-class LoginPage extends StatefulWidget{
+class RegisterPage extends StatefulWidget{
   @override
-  _LoginPageState createState() {
-    return _LoginPageState();
+  _RegisterPageState createState() {
+    return _RegisterPageState();
   }
 }
 
-class _LoginPageState extends State<LoginPage>{
+class _RegisterPageState extends State<RegisterPage>{
 
   final _apiClient = NetworkProvider();
   ProgressDialog pr;
@@ -58,24 +59,29 @@ class _LoginPageState extends State<LoginPage>{
       child: Column(
         children: <Widget>[
           Container(
-            child: Text('登录',style: TextStyle(fontSize: 24),),
+            child: Text('注册',style: TextStyle(fontSize: 24),),
           ),
           LoginPut(save:(val){
             passwordLoginInfo.phone = val;
           },img:'assets/phone.png',name:'手机号码'),
 
           LoginPut(save:(val){
+            passwordLoginInfo.nickname = val;
+          },img:'assets/message.png',name:'昵称'),
+          LoginPut(save:(val){
             passwordLoginInfo.password = val;
           },img:'assets/lock.png',name:'密码'),
 
+          LoginPut(save:(val){
+            passwordLoginInfo.confirm = val;
+          },img:'assets/lock.png',name:'确认密码'),
+          
           LoginBtn(press: (){
-            _loginByPassword();
-          },bgColor: Color(0xff488aff),fontColor: Color(0xffffffff),name: '登录',),
-           LoginBtn(press: (){
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => RegisterPage()
-            ));
-          },bgColor: Color(0xffEEEEEE),fontColor: Color(0xff333333),name: '注册',),
+            _registerByPassword();
+          },bgColor: Color(0xff488aff),fontColor: Color(0xffffffff),name: '注册',),
+          LoginBtn(press: (){
+            Navigator.of(context).pop();
+          },bgColor: Color(0xffEEEEEE),fontColor: Color(0xff333333),name: '返回登录',),
 
         ],
       ),
@@ -83,15 +89,16 @@ class _LoginPageState extends State<LoginPage>{
   }
 
 
-   _loginByPassword() async {
+   _registerByPassword() async {
     //验证
     final form = _passwordFormKey.currentState;
     form.save();
     if (Validators.phone(passwordLoginInfo.phone) &&
         Validators.required(passwordLoginInfo.password)) {
       showLoginDialog();
-      _apiClient.login({
+      _apiClient.register({
         'mobile':passwordLoginInfo.phone,
+        'nickname':passwordLoginInfo.nickname,
         'password':passwordLoginInfo.password
       }).then((res) {
         pr.hide();
@@ -110,6 +117,8 @@ class _LoginPageState extends State<LoginPage>{
       });
     } else if (!Validators.phone(passwordLoginInfo.phone)) {
       UiUtil.showToast('请输入正确的手机号码');
+    } else if (passwordLoginInfo.password != passwordLoginInfo.confirm) {
+      UiUtil.showToast('输入密码不一致，请确认密码');
     } else {
       UiUtil.showToast('请输入验证码');
     }

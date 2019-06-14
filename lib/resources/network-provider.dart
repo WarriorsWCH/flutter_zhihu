@@ -21,4 +21,10 @@ class NetworkProvider extends BaseApiProvider {
     return response.toString();
   }
 
+  // 注册
+  Future<String> register(Map<String, dynamic> params) async {
+    final response = await get('https://imoocqa.gugujiankong.com/api/account/register', params);
+    return response.toString();
+  }
+
 }
