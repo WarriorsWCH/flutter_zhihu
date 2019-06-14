@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_zhihu/resources/local_data_provider.dart';
+import 'package:flutter_zhihu/resources/network-provider.dart';
+import 'package:flutter_zhihu/screens/home/home_page.dart';
+import 'package:flutter_zhihu/utils/ui_util.dart';
 import 'package:flutter_zhihu/utils/validators.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class PasswordLoginInfo {
   String phone;
@@ -17,6 +23,7 @@ class LoginPage extends StatefulWidget{
 
 class _LoginPageState extends State<LoginPage>{
 
+  final _apiClient = NetworkProvider();
   ProgressDialog pr;
   
   GlobalKey<FormState> _passwordFormKey = GlobalKey<FormState>();
@@ -45,6 +52,9 @@ class _LoginPageState extends State<LoginPage>{
       key: _passwordFormKey,
       child: Column(
         children: <Widget>[
+          Container(
+            child: Text('登录',style: TextStyle(fontSize: 24),),
+          ),
           Container(
             margin: EdgeInsets.only(top: 30),
             alignment: Alignment.centerLeft,
@@ -133,6 +143,27 @@ class _LoginPageState extends State<LoginPage>{
                       )),
                 ),
               )),
+
+          Container(
+              margin: EdgeInsets.only(top: 40),
+              child: RaisedButton(
+                onPressed: () {
+                  
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
+                color: Color(0xffEEEEEE),
+                child: Container(
+                  height: 44,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Text('注册',
+                      style: TextStyle(
+                        fontSize: 18.0, 
+                        // color: const Color(0xffffffff), 
+                      )),
+                ),
+              )),
         ],
       ),
     );
@@ -145,50 +176,28 @@ class _LoginPageState extends State<LoginPage>{
     form.save();
     if (Validators.phone(passwordLoginInfo.phone) &&
         Validators.required(passwordLoginInfo.password)) {
-      var params = {
-        'mobile': passwordLoginInfo.phone,
-        'password': passwordLoginInfo.password
-      };
       showLoginDialog();
-      // loginBloc.loginByPassword(params).then((BaseResp res) {
-      //   pr.hide();
-      //   if (res.result) {
-      //     UserModel userModel = UserModel.fromJson(res.data);
-      //     loginBloc.saveUserInfo(userModel);
+      _apiClient.login({
+        'mobile':passwordLoginInfo.phone,
+        'password':passwordLoginInfo.password
+      }).then((res) {
+        pr.hide();
+        print(res);
+        var data = json.decode(res);
+        if (data['Status'] == 'OK'){
+          LocalDataProvider.getInstance().saveUserInfo(data['UserId'],data['UserNickName'],data['UserHeadface']);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context)=>HomePage()
+          ));
+        } else {
+          UiUtil.showToast(data['StatusContent']);
+        }
 
-      //     if (null == userModel.studentList[0].enName ||
-      //         !Validators.isNotBaby(userModel.studentList[0].enName)) {
-      //       // 如果用户英文名不符合规则，那就去完善信息页面
-      //       Navigator.of(context).push(MaterialPageRoute(
-      //         builder: (context) => CompleteInfoPage(
-      //             password: passwordLoginInfo.password,
-      //             type: CompleteInfoType.passwordLogin),
-      //       ));
-      //     } else {
-      //       toHomePage(context);
-      //     }
-      //   } else {
-      //     UiUtil.showToast(res.msg);
-      //   }
-      // });
+      });
     } else if (!Validators.phone(passwordLoginInfo.phone)) {
-      Fluttertoast.showToast(
-        msg: '请输入正确的手机号码',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-        backgroundColor: Color(0x88000000),
-        textColor: Colors.white,
-        fontSize: 14.0);
+      UiUtil.showToast('请输入正确的手机号码');
     } else {
-     Fluttertoast.showToast(
-        msg: '请输入正确的密码',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-        backgroundColor: Color(0x88000000),
-        textColor: Colors.white,
-        fontSize: 14.0);
+      UiUtil.showToast('请输入验证码');
     }
   }
 

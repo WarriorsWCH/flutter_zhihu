@@ -42,7 +42,12 @@ class LocalDataProvider {
 
   }
 
-
+  saveUserInfo(userId,userNickName,userHeadface) async {
+    sp.putString(SharedPreferencesKeys.userId, userId);
+    sp.putString(SharedPreferencesKeys.userNickName, userNickName);
+    sp.putString(SharedPreferencesKeys.userHeadface, userHeadface);
+    initBriefInfo();
+  }
   bool isLogin() {
     if (null == _briefInfo) {
       return false;

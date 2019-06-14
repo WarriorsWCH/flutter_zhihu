@@ -15,4 +15,10 @@ class NetworkProvider extends BaseApiProvider {
     return response.toString();
   }
 
+  // 登录
+  Future<String> login(Map<String, dynamic> params) async {
+    final response = await get('https://imoocqa.gugujiankong.com/api/account/login', params);
+    return response.toString();
+  }
+
 }
