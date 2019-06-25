@@ -23,7 +23,7 @@ class LocalDataProvider {
   // 单利
   static LocalDataProvider getInstance() {
     if (_instance == null) {
-      _instance = new LocalDataProvider();
+      _instance = LocalDataProvider();
     }
     return _instance;
   }
@@ -32,7 +32,7 @@ class LocalDataProvider {
     sp = await SpUtil.getInstance();
     _remindTime = sp.getInt(SharedPreferencesKeys.remindTime);
     _loginTime = sp.getInt(SharedPreferencesKeys.loginTime);
-    _briefInfo = new UserBriefModel();
+    _briefInfo = UserBriefModel();
     initBriefInfo();
   }
 
@@ -98,6 +98,19 @@ class LocalDataProvider {
   setRemindTime(int time) {
     _remindTime = time;
   }
+
+  getUserId() {
+    return _briefInfo.userId;
+  }
+
+  getUserNickName() {
+    return _briefInfo.userNickName;
+  }
+
+  getUserHeadface() {
+    return _briefInfo.userHeadface;
+  }
+
 
   String getPokeMeTime(String key) {
     return sp.get('pokeMeTime');

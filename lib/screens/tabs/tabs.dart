@@ -25,7 +25,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin{
   int _selectedIndex = 0;
   List<TabModel> _titles = [
     TabModel('首页',Icons.home),
-    TabModel('发现',Icons.disc_full),
+    TabModel('发现',Icons.find_in_page),
     TabModel('更多',Icons.more)
   ];
 

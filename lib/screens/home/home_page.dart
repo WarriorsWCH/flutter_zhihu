@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zhihu/blocs/home-bloc.dart';
 import 'package:flutter_zhihu/screens/home/put_questions.dart';
@@ -42,12 +43,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
           fontFamily: "PingFangSC-Regular")
         ),
         actions: <Widget>[
-          IconButton(
-            color: Color(0xff488aff),
+          MaterialButton(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             disabledColor: Colors.transparent,
-            icon: Icon(Icons.question_answer),
             onPressed: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -55,6 +54,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                 )
               );
             },
+            child: Text('提问',style: TextStyle(
+              fontSize: 18
+            ),),
           )
         ],
       ),

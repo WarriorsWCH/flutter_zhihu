@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
 import 'package:flutter_zhihu/screens/login/login_page.dart';
 import 'package:flutter_zhihu/screens/tabs/tabs.dart';
@@ -19,7 +20,11 @@ bool isLogin;
 void main() async{
   isLogin = LocalDataProvider.getInstance().isLogin();
   await saveSystemInfo();
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
+      runApp(new MyApp());
+    });
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Zhihu',
+      title: '知乎',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,

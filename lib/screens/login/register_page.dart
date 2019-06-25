@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
 import 'package:flutter_zhihu/resources/network-provider.dart';
-import 'package:flutter_zhihu/screens/home/home_page.dart';
 import 'package:flutter_zhihu/screens/tabs/tabs.dart';
 import 'package:flutter_zhihu/utils/ui_util.dart';
 import 'package:flutter_zhihu/utils/validators.dart';
@@ -43,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset:false,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.fromLTRB(30, 50, 30, 20),
