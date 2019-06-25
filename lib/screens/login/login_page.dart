@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
 import 'package:flutter_zhihu/resources/network-provider.dart';
-import 'package:flutter_zhihu/screens/home/home_page.dart';
 import 'package:flutter_zhihu/screens/login/register_page.dart';
 import 'package:flutter_zhihu/screens/tabs/tabs.dart';
 import 'package:flutter_zhihu/utils/ui_util.dart';

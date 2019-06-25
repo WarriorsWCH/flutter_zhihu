@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 
-class LoginPut extends StatefulWidget{
+class LoginPut extends StatefulWidget {
   final Function(dynamic) save;
   String img;
   String name;
-  LoginPut({
-      this.save,
-      this.img,
-      this.name
-    }
-  );
+  LoginPut({this.save, this.img, this.name});
   @override
   _loginPutState createState() {
     return _loginPutState();
@@ -17,7 +12,6 @@ class LoginPut extends StatefulWidget{
 }
 
 class _loginPutState extends State<LoginPut> {
-
   @override
   void initState() {
     super.initState();
@@ -29,8 +23,8 @@ class _loginPutState extends State<LoginPut> {
       margin: EdgeInsets.only(top: 10),
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(width: 1.0, color: Color(0xFFEEEEEE)))),
+          border:
+              Border(bottom: BorderSide(width: 1.0, color: Color(0xFFEEEEEE)))),
       child: Row(
         children: <Widget>[
           Image(
@@ -53,8 +47,7 @@ class _loginPutState extends State<LoginPut> {
                       // 设置字体样式
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintStyle:
-                              TextStyle(color: Color(0xFFC2C2C2)),
+                          hintStyle: TextStyle(color: Color(0xFFC2C2C2)),
                           hintText: widget.name),
                       obscureText: true))),
         ],

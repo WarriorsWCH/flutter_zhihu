@@ -27,4 +27,9 @@ class NetworkProvider extends BaseApiProvider {
     return response.toString();
   }
 
+  // 提问
+  Future<String> saveQuestion(Map<String, dynamic> params) async {
+    final response = await get('https://imoocqa.gugujiankong.com/api/question/save', params);
+    return response.toString();
+  }
 }

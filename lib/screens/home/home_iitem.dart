@@ -40,6 +40,7 @@ class _HomeItemState extends State<HomeItem>{
                   ),
                   borderRadius: BorderRadius.circular(100)
                 ),
+                // child: _buildWidget(widget.data['HeadFace']),
               ),
               
               Text('${widget.data['UserNickName']}${widget.str}了该问题',style: TextStyle(fontSize: 14,color: Color(0xff999999)),),
@@ -77,5 +78,25 @@ class _HomeItemState extends State<HomeItem>{
         ],
       ),
     );
+  }
+
+  Widget _buildWidget(url) {
+    Image image = Image.network(url);
+    ImageStream stream;
+    try {
+      stream = image.image.resolve(ImageConfiguration.empty);
+    } catch (e) {
+      print('enter catch exception start');
+      print(e);
+      print('enter catch exception end');
+      return Container();
+    }
+    stream.addListener((_,__){}, onError: (dynamic exception, StackTrace stackTrace) {
+      print('enter onError start');
+      print(exception);
+      print(stackTrace);
+      print('enter onError end');
+    });
+    return image;
   }
 }
