@@ -32,4 +32,22 @@ class NetworkProvider extends BaseApiProvider {
     final response = await get('https://imoocqa.gugujiankong.com/api/question/save', params);
     return response.toString();
   }
+
+  // 我的提问 关注 回答
+  Future<String> getUserQuestionList(Map<String, dynamic> params) async {
+    final response = await get('https://imoocqa.gugujiankong.com/api/account/getuserquestionlist', params);
+    return response.toString();
+  }
+
+  // // 提问
+  // Future<String> saveQuestion(Map<String, dynamic> params) async {
+  //   final response = await get('https://imoocqa.gugujiankong.com/api/question/save', params);
+  //   return response.toString();
+  // }
+
+  // // 提问
+  // Future<String> saveQuestion(Map<String, dynamic> params) async {
+  //   final response = await get('https://imoocqa.gugujiankong.com/api/question/save', params);
+  //   return response.toString();
+  // }
 }

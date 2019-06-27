@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zhihu/resources/local_data_provider.dart';
+import 'package:flutter_zhihu/screens/more/question_list_page.dart';
 
 
 class MorePage extends StatefulWidget{
@@ -52,16 +53,37 @@ class _MorePageState extends State<MorePage>{
                           icon: Icons.question_answer,
                           text: '我的提问',
                           needBorder: true,
+                          push: (){
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => QuestionListPage(type: 'question',title: '我的提问',)
+                              )
+                            );
+                          },
                         ),
                         _Item(
                           icon: Icons.report_problem,
                           text: '我的回答',
                           needBorder: true,
+                          push: (){
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => QuestionListPage(type: 'answer',title: '我的回答',)
+                              )
+                            );
+                          },
                         ),
                         _Item(
                           icon: Icons.not_interested,
                           text: '我的关注',
                           needBorder: false,
+                          push: (){
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => QuestionListPage(type: 'favourite',title: '我的关注',)
+                              )
+                            );
+                          },
                         )
                       ],
                     ),
@@ -184,19 +206,21 @@ class _Item extends StatelessWidget {
   final IconData icon;
   final String text;
   final bool needBorder;
+  Function push;
 
   _Item(
       {Key key,
       @required this.icon,
       @required this.text,
-      @required this.needBorder,})
+      @required this.needBorder,
+      this.push})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
+        if (push != null) this.push();
       },
       child: Container(
         height: 60,

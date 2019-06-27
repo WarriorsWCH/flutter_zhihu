@@ -33,6 +33,7 @@ dependencies:
   flutter_easyrefresh: ^1.2.7
   # 弹窗
   progress_dialog: ^1.1.0+1
+  intl: ^0.15.7
 
 dev_dependencies:
   flutter_test:

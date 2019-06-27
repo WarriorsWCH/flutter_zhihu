@@ -4,7 +4,8 @@ import 'package:flutter_zhihu/utils/screen_util.dart';
 class HomeItem extends StatefulWidget{
   final Map<String,dynamic> data;
   String str;
-  HomeItem(this.data,{this.str = '回答'});
+  bool hasNum;
+  HomeItem(this.data,{this.str = '回答',this.hasNum = true});
 
   @override
   _HomeItemState createState() {
@@ -23,7 +24,7 @@ class _HomeItemState extends State<HomeItem>{
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(bottom: 20),
+      margin: widget.hasNum ? EdgeInsets.only(bottom: 20) : EdgeInsets.only(bottom: 0),
       color: Colors.white,
       child: Column(
         children: <Widget>[
@@ -40,7 +41,6 @@ class _HomeItemState extends State<HomeItem>{
                   ),
                   borderRadius: BorderRadius.circular(100)
                 ),
-                // child: _buildWidget(widget.data['HeadFace']),
               ),
               
               Text('${widget.data['UserNickName']}${widget.str}了该问题',style: TextStyle(fontSize: 14,color: Color(0xff999999)),),
@@ -68,35 +68,16 @@ class _HomeItemState extends State<HomeItem>{
             ),
           ),
 
-          Container(
+          widget.hasNum ? Container(
             alignment: Alignment.centerLeft,
             child: Text(
                 '${widget.data['LikeCount']} 赞同  ·  ${widget.data['CommentCount']} 评论 ',
               style: TextStyle(fontSize: 14,color: Color(0xff999999)),
             ),
-          )
+          ) : Container()
         ],
       ),
     );
   }
 
-  Widget _buildWidget(url) {
-    Image image = Image.network(url);
-    ImageStream stream;
-    try {
-      stream = image.image.resolve(ImageConfiguration.empty);
-    } catch (e) {
-      print('enter catch exception start');
-      print(e);
-      print('enter catch exception end');
-      return Container();
-    }
-    stream.addListener((_,__){}, onError: (dynamic exception, StackTrace stackTrace) {
-      print('enter onError start');
-      print(exception);
-      print(stackTrace);
-      print('enter onError end');
-    });
-    return image;
-  }
 }
